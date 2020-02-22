@@ -1,0 +1,113 @@
+body {
+    background-color: #F2F2F2;
+    color: #404040;
+    font-size: 17px;
+    font-family: 'Lato', sans-serif;
+    margin: 0 !important;
+}
+/* GÓRA */
+.logo {
+    font-size: 48px;
+}
+
+.logotext {
+    text-shadow: -2px 0 #594A3E, 0 2px #594A3E, 2px 0 #594A3E, 0 -2px #594A3E;
+}
+/* NAVBAR */
+
+nav {
+    min-height: 58px;
+    border-top: 1px solid #594A3E;
+    border-bottom: 1px solid #594A3E;
+}
+
+.bg-nav-Wallet {
+    background-color: #A69886;
+}
+
+/* container */
+/* HEADER */
+h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #A69886;
+    margin: 20px;
+    text-shadow: -1px 0 #594A3E, 0 1px #594A3E, 1px 0 #594A3E, 0 -1px #594A3E;
+}
+
+/* center */
+.tile { /*kafel*/
+    font-size: 22px;
+    width: 100%;
+    border: 5px solid #A69886;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 36px;
+    border-top: 2px dashed #A69886;
+    border-bottom: 2px dashed #A69886;
+    text-align: center;
+}
+
+/* Przycisk wrapper1 */
+.wrapper1 {
+    box-shadow: inset 0px 1px 0px 0px #caefab;
+    background-color: #77d42a;
+    border-radius: 6px;
+    border: 1px solid #268a16;
+    cursor: pointer;
+    color: #306108;
+    font-weight: bold;
+    padding: 14px 23px;
+    margin: 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #aade7c;
+}
+.wrapper1:hover {
+    background-color: #5cb811;
+}
+.wrapper1:active {
+    position: relative;
+    top: 1px;
+}
+#login {
+
+    color: #306108;
+    font-size: 28px;
+    background-color: transparent;
+    border: 0;
+}
+
+/* Przycisk wrapper2 */
+.wrapper2 {
+    box-shadow: inset 0px 1px 0px 0px #E19F7E;
+    background-color: #DB713A;
+    border-radius: 6px;
+    border: 1px solid #A8552C;
+    cursor: pointer;
+    color: #5C4133;
+    font-weight: bold;
+    padding: 14px 23px;
+    margin: 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #5C2F18;
+}
+.wrapper2:hover {
+    background-color: #BF5526;
+}
+.wrapper2:active {
+    position: relative;
+    top: 1px;
+}
+#logout {
+
+    color: #5C4133;
+    font-size: 28px;
+    background-color: transparent;
+    border: 0;
+}
+/* footer */
+.rectangle {
+    text-align: center;
+}

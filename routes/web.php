@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/zarzadzaj-swoim-budzetem', 'SitesController@index');
+// Route::resource('pages', 'PageController');

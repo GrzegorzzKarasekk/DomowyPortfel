@@ -1,0 +1,82 @@
+{
+  "name": "",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "8b80d36d4ef43889db10bc1f0dc9a862",
+      "css": "user",
+      "code": 59392,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a204f0fa972408eaae5a363c444991b2",
+      "css": "login",
+      "code": 59393,
+      "src": "entypo"
+    },
+    {
+      "uid": "076f940ac56adee91dd43d6fd77dd0cf",
+      "css": "user-add",
+      "code": 59394,
+      "src": "typicons"
+    },
+    {
+      "uid": "ccc2329632396dc096bb638d4b46fb98",
+      "css": "mail-alt",
+      "code": 61664,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8beac4a5fd5bed9f82ca7a96cc8ba218",
+      "css": "key",
+      "code": 59395,
+      "src": "entypo"
+    },
+    {
+      "uid": "1ee2aeb352153a403df4b441a8bc9bda",
+      "css": "calc",
+      "code": 61932,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e7eecc3cc44f3f4cad6229b202588308",
+      "css": "calendar-plus-o",
+      "code": 62065,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e66ec405e2e1f3bec6546b4e776924d3",
+      "css": "calendar-minus-o",
+      "code": 62066,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "98687378abd1faf8f6af97c254eb6cd6",
+      "css": "cog-alt",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2d76f2c8d13be40694ecadfea7fb83c3",
+      "css": "logout",
+      "code": 59397,
+      "src": "entypo"
+    },
+    {
+      "uid": "a027a2ce420dfd6b660212d5ac6a7cc9",
+      "css": "calendar-times-o",
+      "code": 62067,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "64abb7c56aefca89046bb69f7251d2e2",
+      "css": "calendar",
+      "code": 59398,
+      "src": "elusive"
+    }
+  ]
+}

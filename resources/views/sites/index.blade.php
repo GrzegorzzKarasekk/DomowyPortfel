@@ -1,21 +1,15 @@
+@if(Route::has('login'))
+  <script>
+    window.location = "/home";
+  </script>
+@else 
+
 @extends('layouts.app')
 
-
-@section('title', 'Domowy Portfel')
-
-@section('logo')
-<div class="col-sm-12 logo mx-auto my-1 text-center">
-        <a href="zarzadzaj-swoim-budzetem"><img src="jpg/portfelicon.jpg" class="img-fluid" alt="strona główna" /></a>
-        <div class=" logotext d-inline-block">
-            <span style="color:#A69886">Domowy</span>Portfel
-        </div>
-</div>
-@endsection
+@section('title', 'Zarządzaj swoim budżetem')
 
 @section('navbar')
-<nav class="navbar navbar-dark bg-nav-Wallet navbar-expand-lg">
-
-</nav>
+<nav class="navbar navbar-dark bg-nav-Wallet navbar-expand-lg"></nav>
 @endsection
 
 
@@ -36,7 +30,7 @@
         <div class="col-sm-6 mx-auto my-auto">
             <div class="tile">
                 <h2 class="h3 font-weight-bold my-2 ">Posiadam już konto</h2>
-                <div class="wrapper1 text-center" onclick="window.location.href='zaloguj-sie'">
+                <div class="wrapper1 text-center" onclick="window.location.href='/login'">
                     <i class="icon-login"></i>
                     <input type="button" id="login" value="Zaloguj się!">
                 </div>
@@ -45,7 +39,7 @@
         <div class="col-sm-6 mx-auto my-auto">
             <div class="tile">
                 <h2 class="h3 font-weight-bold my-2 ">Chcę założyć konto</h2>
-                <div class="wrapper2 text-center" onclick="window.location.href='zarejestruj-sie'">
+                <div class="wrapper2 text-center" onclick="window.location.href='/register'">
                     <i class="icon-user-add"></i>
                     <input type="button" id="logout" value="Dołącz do nas!">
 
@@ -55,7 +49,4 @@
     </div>
 </div>
 @endsection
-
-@section('footer')
-    <div class="rectangle">2020 &copy; Domowy portfel - Wszelkie prawa zastrzeżone <i class="icon-mail-alt"> </i>grzegorz.karasek.programista@gmail.com</div>
-@endsection
+@endif

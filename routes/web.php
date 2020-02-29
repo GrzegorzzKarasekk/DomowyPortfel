@@ -10,9 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'SitesController@index');
+Route::get('/hello', 'SitesController@hello');
+// Uwierzytelnianie
+Route::get('/login', 'Auth\AuthController@getLogin');
+Route::post('/login', 'Auth\AuthController@postLogin');
+// Route::get('/logout', 'Auth\AuthController@getLogout');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/zarzadzaj-swoim-budzetem', 'SitesController@index');
-// Route::resource('pages', 'PageController');
+// Rejestracja
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', 'Auth\AuthController@postRegister');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/hello', 'HomeController@hello')->name('home');

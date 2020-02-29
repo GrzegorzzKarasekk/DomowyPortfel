@@ -10,4 +10,9 @@ class SitesController extends Controller
     {
         return view('sites.index');
     }
+
+    public function hello()
+    {
+        return view('sites.hello');
+    }
 }

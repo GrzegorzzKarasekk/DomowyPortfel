@@ -25,8 +25,50 @@ nav {
     background-color: #A69886;
 }
 
+nav a:link {
+    color: #666666;
+    text-decoration: none;
+}
+
+nav a:visited {
+    color: #666666;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #404040;
+}
+
+.dropdown-menu {
+    background-color: #A69886;
+    border: none;
+}
+
+.dropdown-menu a:link {
+
+    color: #666666;
+    text-decoration: none;
+}
+
+.dropdown-menu a:visited {
+    color: #666666;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    color: #404040;
+    background-color: #A69886;
+}
+
+ .divider {
+    border: 1px dashed #111;
+}
 /* container */
 /* HEADER */
+.walletspage {
+    text-align: center;
+}
+
 h1 {
     font-size: 40px;
     font-weight: 700;
@@ -110,4 +152,208 @@ h2 {
 /* footer */
 .rectangle {
     text-align: center;
+}
+
+/* ERRORS */
+.alert {
+    font-size: 50% !important;
+    text-align: left !important;
+}
+.alert-info {
+    color: yellow !important;
+}
+.alert-success {
+    color: greenyellow !important;
+}
+.alert-danger {
+    color: red !important;
+}
+
+/* Układ formularzy */
+
+.wrapperForm {
+    border: 2px solid #A69886;
+    border-radius: 5px;
+    background-color: #efefef;
+    color: #666;
+    text-align: left;
+}
+
+.wrapperForm > label {
+    margin-top: 5px;
+    background-color: transparent;
+
+}
+.wrapperForm > label > input {
+    border: 1px dashed #A69886;
+    font-size: 90%;
+}
+
+/* Cudzysłowia */
+q:lang(pl) {
+    quotes: "\201E""\201D""\201A""\2019"
+}
+
+q:before {
+    content: open-quote
+}
+
+q:after {
+    content: close-quote
+}
+/* Przyciski Menu */
+
+.tileMenu {
+    padding: 10px;
+    font-size: 26px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+}
+/* PRZYCISK 1 */
+#menuTile1 {
+    box-shadow:inset 0px 1px 0px 0px #3dc21b;
+	background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+	background-color:#44c767;
+	border-radius:10%;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:25px;
+	font-weight:bold;
+	padding: 15% 25%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+#menuTile1:hover {
+    background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+	background-color:#5cbf2a;
+    cursor: pointer;
+}
+.icon-calendar-plus-o,
+.menuButton1 {
+    color: #0A612D;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+/* PRZYCISK 2 */
+#menuTile2 {
+    box-shadow:inset 0px 1px 0px 0px #9fb4f2;
+	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+	background-color:#7892c2;
+	border-radius:10%;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:25px;
+	font-weight:bold;
+	padding: 15% 25%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+#menuTile2:hover {
+    background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+    background-color:#476e9e;
+    cursor: pointer;
+}
+.icon-calendar-minus-o,
+.menuButton2 {
+    color: #2D3757;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+/* PRZYCISK 3 */
+#menuTile3 {
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:10%;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:25px;
+	font-weight:bold;
+	padding: 15% 25%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+}
+#menuTile3:hover {
+    background:linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
+	background-color:#80b5ea;
+    cursor: pointer;
+}
+.icon-calc,
+.menuButton3 {
+    color: #2D343B;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+/* PRZYCISK 4 */
+#menuTile4 {
+    box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
+	background-color:#ffc477;
+	border-radius:10%;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:25px;
+	font-weight:bold;
+	padding: 15% 25%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #cc9f52;
+}
+#menuTile4:hover {
+    background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
+    background-color:#fb9e25;
+    cursor: pointer;
+}
+.icon-cog-alt,
+.menuButton4 {
+    color: #C65601;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+}
+/* PRZYCISK 5 */
+#menuTile5 {
+    box-shadow:inset 0px 1px 0px 0px #efdcfb;
+	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
+	background-color:#dfbdfa;
+	border-radius:10%;
+	border:1px solid #c584f3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:25px;
+	font-weight:bold;
+    padding: 15% 25%;
+    text-decoration:none;
+	text-shadow:0px 1px 0px #9752cc;
+}
+
+#menuTile5:hover {
+    background:linear-gradient(to bottom, #bc80ea 5%, #dfbdfa 100%);
+	background-color:#bc80ea;
+    cursor: pointer;
+}
+.icon-logout,
+.menuButton5 {
+    color: #703A98;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
 }

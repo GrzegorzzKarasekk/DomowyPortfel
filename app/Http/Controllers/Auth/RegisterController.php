@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HELLO;
 
     /**
      * Create a new controller instance.
@@ -49,10 +49,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $data['name'] = mb_convert_case($data['name'],MB_CASE_TITLE,"UTF-8");
+        
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['regex:/^[A-ZŁŚŻŹ]{1}[a-ząęółśżźćń]+$/i','required', 'string', 'between:3,255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'max:20', 'confirmed'],
         ]);
     }
 

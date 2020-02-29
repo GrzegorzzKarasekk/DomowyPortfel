@@ -13,6 +13,7 @@ return [
     |
     */
 
+
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after' => 'The :attribute must be a date after :date.',
@@ -86,14 +87,17 @@ return [
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
+        //'numeric' => 'Wartość :attribute powinna posiadać przynamniej :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
         'string' => 'The :attribute must be at least :min characters.',
         'array' => 'The :attribute must have at least :min items.',
     ],
+    //'name' => 'Atrybut - :attribute - musi posiadać od 3 do 20 znaków!',
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'The :attribute must be a number.',
     'password' => 'The password is incorrect.',
+    //'password' => 'Hasło jest niepoprawne.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
     'required' => 'The :attribute field is required.',
@@ -114,6 +118,7 @@ return [
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid zone.',
     'unique' => 'The :attribute has already been taken.',
+    // 'unique' => 'Ten atrybut -  :attribute już został użyty.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -129,12 +134,20 @@ return [
     |
     */
 
+    // 'custom' => [
+    //     'attribute-name' => [
+    //         'rule-name' => 'custom-message',
+    //     ],
+    // ],
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'regex'    => 'Wpisane imię jest niepoprawne',
+            'required'    => 'Potrzebujemy twojego imienia :)',
+            'between' => 'Imię powinno mieć od :min do :max znaków.',
+            'string'      => 'Twoje imię powinno być ciągiem znaków',
         ],
+        
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

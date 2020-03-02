@@ -160,13 +160,15 @@ h2 {
     text-align: left !important;
 }
 .alert-info {
-    color: yellow !important;
+    color: rgb(156, 156, 25) !important;
 }
 .alert-success {
-    color: greenyellow !important;
+    color: #088012 !important;
+    font-size: 20px;
+    text-align: justify;
 }
 .alert-danger {
-    color: red !important;
+    color: #8F1E19 !important;
 }
 
 /* Układ formularzy */
@@ -356,4 +358,70 @@ q:after {
     background-color: transparent;
     border: 0;
     cursor: pointer;
+}
+
+/* KLAWISZE DODAWANIA I ANULOWANIA */
+
+.wrapperAccept {
+    box-shadow: inset 0px 1px 0px 0px #caefab;
+    background-color: #77d42a;
+    border-radius: 6px;
+    border: 1px solid #268a16;
+    cursor: pointer;
+    color: #306108;
+    font-weight: bold;
+    padding: 14px 23px;
+    margin: 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #aade7c;
+}
+
+.wrapperAccept:hover {
+    background-color: #148012;
+}
+
+.wrapperAccept:active {
+    position: relative;
+    top: 1px;
+}
+
+.wrapperAccept > .dodaj {
+    color: #004000;
+    background-color: transparent;
+    border: 0;
+}
+
+.wrapperAccept > .icon-calendar-plus-o {
+    color: #004000;
+    background-color: transparent;
+    border: 0;
+}
+
+.wrapperCancel {
+    box-shadow: inset 0px 1px 0px 0px #FF2222;
+    background-color: #E61E1E;
+    border-radius: 6px;
+    border: 1px solid #400808;
+    cursor: pointer;
+    color: #400808;
+    font-weight: bold;
+    padding: 14px 23px;
+    margin: 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #BF1919;
+}
+
+.wrapperCancel:hover {
+    background-color: #801111;
+}
+
+.wrapperCancel:active {
+    position: relative;
+    top: 1px;
+}
+
+.wrapperCancel > .anuluj {
+    color: #400808;
+    background-color: transparent;
+    border: 0;
 }

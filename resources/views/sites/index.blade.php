@@ -1,4 +1,4 @@
-@if(Route::has('login'))
+@if(auth()->user())
   <script>
     window.location = "/home";
   </script>
@@ -49,4 +49,5 @@
     </div>
 </div>
 @endsection
+
 @endif

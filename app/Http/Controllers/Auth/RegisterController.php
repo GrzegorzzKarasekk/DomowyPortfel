@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -66,10 +68,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        
+        $userId = DB::table('users')->get()->last()->id;
+
+        $default_incomes = DB::table('default_incomes')->get();
+
+        foreach ($default_incomes as $default_income)
+        {
+            DB::table('users_incomes')->insertGetId(
+                array('user_id' => $userId, 'category_name' => $default_income->category_name)
+            );
+        }
+
+        //DB::insert('insert into users_incomes (user_id,category_name) SELECT category_name FROM default_incomes'); 
+
+        //DB::update('update users_incomes set user_id = $userId where user_id = 0');
+        $defaults_incomes = [];
+        $userId = [];
+
+        return $user;
+        
+
     }
 }

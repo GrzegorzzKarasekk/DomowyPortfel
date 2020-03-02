@@ -1,8 +1,12 @@
-@if(Auth::user()->role_id == 1)
+@if(auth()->user())
+  <script>
+    window.location = "/home";
+  </script>
+@else 
 
 @extends('layouts.app')
 
-@section('title', 'Witaj użytkowniku')
+@section('title', 'Witaj użytkowniku!')
 
 @section('navbar')
 <nav class="navbar navbar-dark bg-nav-Wallet navbar-expand-lg"></nav>
@@ -29,6 +33,4 @@
             </div>
         </article>
 @endsection
-@else 
-  <script>window.location = "/home";</script>
 @endif

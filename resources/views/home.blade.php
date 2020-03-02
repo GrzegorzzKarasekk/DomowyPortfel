@@ -15,7 +15,7 @@
 
         <li role="separator" class="divider"></li>
         
-        <li class="nav-item mx-4"><a href="dodaj-przychod">Dodaj przychód</a></li>
+        <li class="nav-item mx-4"><a href="{{ url('/income') }}">Dodaj przychód</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
@@ -53,7 +53,7 @@
         </header>
 
         <div class="row mb-4">
-            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='dodaj-przychod'">
+            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='{{ url('/income') }}'">
                 <div class="tileMenu">
                     <div id="menuTile1">
                         <i class="icon-calendar-plus-o display-inline-block"></i>

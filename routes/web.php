@@ -25,3 +25,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/hello', 'HomeController@hello')->name('home');
+
+//Incomes
+Route::get('/income', 'IncomeController@index');
+Route::post('/income', 'IncomeController@create');

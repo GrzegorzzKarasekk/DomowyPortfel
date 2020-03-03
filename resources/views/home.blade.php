@@ -20,7 +20,7 @@
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="dodaj-wydatek">Dodaj wydatek</a></li>
+        <li class="nav-item mx-4"><a href="{{ url('/expense') }}">Dodaj wydatek</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='dodaj-wydatek'">
+            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='{{ url('/expense') }}'">
                 <div class="tileMenu">
                     <div id="menuTile2">
                         <i class="icon-calendar-minus-o display-inline-block"></i>

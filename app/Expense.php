@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Income extends Model
+class Expense extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,8 +12,6 @@ class Income extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'category_user_id', 'amount', 'transaction_date', 'description',
+        'user_id', 'payment_method_id', 'category_user_id', 'amount', 'transaction_date', 'description',
     ];
-    
- 
 }

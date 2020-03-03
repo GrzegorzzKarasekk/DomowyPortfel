@@ -90,6 +90,25 @@ class RegisterController extends Controller
             );
         }
 
+        $default_expenses = DB::table('default_expenses')->get();
+
+        foreach ($default_expenses as $default_expense)
+        {
+            DB::table('users_expenses')->insertGetId(
+                array('user_id' => $userId, 'category_name' => $default_expense->category_name)
+            );
+        }
+
+        $default_payment_methods = DB::table('default_payment_methods')->get();
+
+        foreach ($default_payment_methods as $default_payment_method)
+        {
+            DB::table('users_payment_methods')->insertGetId(
+                array('user_id' => $userId, 'payment_method' => $default_payment_method->payment_method)
+            );
+        }
+
+
         //DB::insert('insert into users_incomes (user_id,category_name) SELECT category_name FROM default_incomes'); 
 
         //DB::update('update users_incomes set user_id = $userId where user_id = 0');

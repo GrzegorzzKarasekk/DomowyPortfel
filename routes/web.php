@@ -29,3 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Incomes
 Route::get('/income', 'IncomeController@index');
 Route::post('/income', 'IncomeController@create');
+
+//Incomes
+Route::get('/expense', 'ExpenseController@index');
+Route::post('/expense', 'ExpenseController@create');

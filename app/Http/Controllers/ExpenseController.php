@@ -32,7 +32,8 @@ class ExpenseController extends Controller
         // echo $today_date;
 
         $this->validate($request,[
-            'amount' => ['required', 'numeric', 'min:0.00'],
+            'pay_option' => ['required'],
+            'amount' => ['required', 'numeric', 'min:0.01'],
             'transaction_date' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
         ]);
         
@@ -41,17 +42,22 @@ class ExpenseController extends Controller
         
         var_dump($request['pay_option']); 
         //Dodawanie do bazy
-        Expense::create([
+        
+        
+        if(Expense::create([
             'user_id' => $userId,
             'payment_method_id' => $request['pay_option'],
             'category_user_id' => $request['category_name'],
             'amount' => $request['amount'],
             'transaction_date' => $request['transaction_date'],
             'description' => $request['description'],            
-        ]);
-
-        //return redirect($this->redirectPath());
-        return redirect()->back()->with('success', 'DODAŁEŚ NOWY WYDATEK!'); 
+        ]))
+        {
+            return redirect()->back()->with('success', 'DODAŁEŚ NOWY WYDATEK!'); 
+            
+        }
+        else
+            return redirect()->back()->with('danger', 'NIE UDAŁO SIĘ DODAĆ WYDATKU :('); 
         //redirect()->back()->with('success', 'your message here');   
     }
 

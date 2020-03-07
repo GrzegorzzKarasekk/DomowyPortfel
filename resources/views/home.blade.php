@@ -45,6 +45,7 @@
 @section('content')
 <article class="walletspage">
     <div class="container">
+       
         <header>
             <h1 class='font-weight-bold text-uppercase mb-2'>Witaj {{ Auth::user()->name }} :D</h1>
             <div class="quotation text-justify mb-4" style="font-size:20px">
@@ -102,6 +103,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </article>
 @endsection

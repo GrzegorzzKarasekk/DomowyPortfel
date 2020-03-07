@@ -30,6 +30,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/income', 'IncomeController@index');
 Route::post('/income', 'IncomeController@create');
 
-//Incomes
+//Expenses
 Route::get('/expense', 'ExpenseController@index');
 Route::post('/expense', 'ExpenseController@create');
+
+//Balances
+Route::get('/balances', 'BalancesController@index');
+Route::get('/balances/unregular', 'BalancesController@unregular');
+
+
+
+

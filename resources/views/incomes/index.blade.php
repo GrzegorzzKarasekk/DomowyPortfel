@@ -54,11 +54,15 @@
 
 @section('content')
 
-    @if (\Session::has('success'))
+@if (\Session::has('success'))
     <div class="alert alert-success">
         {!! \Session::get('success') !!}
     </div>
-    @endif
+    @elseif (\Session::has('danger'))    
+    <div class="alert alert-danger">
+        {!! \Session::get('danger') !!}
+    </div>
+@endif
 
 <article class="walletspage">
     <div class="container">

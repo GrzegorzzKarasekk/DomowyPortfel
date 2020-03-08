@@ -69,43 +69,15 @@ class BalancesController extends Controller
         //Stworzenie wykresu na podstawie tabeli
         $chart = BalancesController::createChart();
              
-        $costOfIncomes = BalancesController::createChart($rangeIncomes);
+        $costOfIncomes = BalancesController::sumOfIncomes($rangeIncomes);
 
-        $costOfExpenses = BalancesController::createChart($rangeExpenses);        
+        $costOfExpenses = BalancesController::sumOfExpenses($rangeExpenses);        
 
-        // foreach($rangeIncomes as $rangeIncome){
-        //     echo $rangeIncome->id;
-        //     echo '<||>';
-        //     echo $rangeIncome->user_id;
-        //     echo '<||>';
-        //     echo $rangeIncome->category_user_id;
-        //     echo '<||>';
-        //     echo $rangeIncome->amount;
-        //     echo '<||>';
-        //     echo $rangeIncome->transaction_date;
-        //     echo '<||>';
-        //     echo $rangeIncome->description;
-        //     echo '</br>';
-        // };
         
-        // foreach($rangeExpenses as $rangeExpense){
-        //     echo $rangeExpense->id;
-        //     echo '<||>';
-        //     echo $rangeExpense->user_id;
-        //     echo '<||>';
-        //     echo $rangeExpense->category_user_id;
-        //     echo '<||>';
-        //     echo $rangeExpense->payment_method_id;
-        //     echo '<||>';
-        //     echo $rangeExpense->amount;
-        //     echo '<||>';
-        //     echo $rangeExpense->transaction_date;
-        //     echo '<||>';
-        //     echo $rangeExpense->description;
-        //     echo '</br>';
-        // };
+        $totalCost = $costOfIncomes - $costOfExpenses;
 
-        return view('balances.index', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'costOfIncomes', 'nameOfIncomes'));//, 'rangeExpenses', 'costOfExpenses', 'nameOfPayOptions'));
+
+        return view('balances.index', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'nameOfIncomes', 'rangeExpenses', 'nameOfPayOptions', 'nameOfExpenses', 'totalCost'));
     }    
 
 

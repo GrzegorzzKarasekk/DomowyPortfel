@@ -445,7 +445,7 @@ q:after {
     font-size: 20px;
     font-weight: bold;
 }
-
+/* TILE INCOMES AND EXPENSES */
 .tileIncomes {
     float: left;
     border: 4px solid #A69886;
@@ -453,6 +453,22 @@ q:after {
     border-radius: 10px;
     padding: 5px;
 
+}
+
+.incomeTr:hover {
+    background-color: rgb(41, 124, 74);
+}
+
+.tileExpenses {
+    float: left;
+    border: 4px solid #A69886;
+    background-color: #108A86;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.expenseTr:hover {
+    background-color: rgb(36, 88, 87);
 }
 
 table {
@@ -470,10 +486,6 @@ tr {
     border: 1px dashed #A69886;
 }
 
-.incomeTr:hover {
-    background-color: rgb(41, 124, 74);
-}
-
 td {
     border: 1px dashed #594A3E;
 }
@@ -488,3 +500,4 @@ td {
     cursor: pointer;
 
 }
+

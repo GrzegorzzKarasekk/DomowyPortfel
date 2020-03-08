@@ -102,19 +102,15 @@
     </div>
 </div>
         
-<!-- Botstrap o poinformowaniu edycji dochodu -->
-<div class="modal" tabindex="-1" id="infoModal" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="color:black; font-size:15px; text-align: center;">
-                <h5 class="modal-title">{{ $dochodZaktualizowany ?? '' }}</h5>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Zamknij</button>
-            </div>
-        </div>
+@if (\Session::has('success'))
+    <div class="alert alert-success">
+        {!! \Session::get('success') !!}
     </div>
-</div>
+    @elseif (\Session::has('danger'))    
+    <div class="alert alert-danger">
+        {!! \Session::get('danger') !!}
+    </div>
+@endif
 
 <article class="walletspage">
     <div class="container">
@@ -146,15 +142,19 @@
                     <tbody>
                     @if( !($rangeIncomes->isEmpty()))
                         @foreach($rangeIncomes as $rangeIncome)
+                        
                         <tr class="incomeTr">
                             <td class="tg-baqh">{{ $rangeIncome->id ?? '' }}</td>
                             <td class="tg-baqh">{{ $rangeIncome->transaction_date ?? '' }}</td>
                             <td class="tg-baqh">{{ number_format($rangeIncome->amount, 2) ?? '' }}</td>
-                            <td class="tg-baqh">{{ $rangeIncome->category_user_id ?? '' }}</td>
+                            @foreach($nameOfIncomes as $nameOfIncome)
+                                @if($rangeIncome->category_user_id == $nameOfIncome->id )
+                                    <td class="tg-baqh">{{ $nameOfIncome->category_name ?? '' }}</td>
+                                @endif
+                            @endforeach                            
                             <td class="tg-baqh">{{ $rangeIncome->description ?? '' }}</td>
                             <td class="tg-baqh edit" data-toggle="modal" data-target="#editIncomeModal{{ $rangeIncome->id ?? '' }}"><i class="icon-edit"></i></td>
                             <td class="tg-baqh delete" data-toggle="modal" data-target="#dataIncomeToTrasch{{ $rangeIncome->id ?? '' }}"><i class="icon-trash"></i></td>
-
 
                             <!-- Modal Income-->
                             <div class="modal" id="editIncomeModal{{ $rangeIncome->id ?? '' }}" tabindex="-1" role="dialog" style="color:black;">
@@ -167,48 +167,50 @@
                                         </button>
                                     </div>
                                     <div class="modal-body" style="text-align:left !important;">
-                                        <form action="editIncomeFromBilance.php" method="post">
-                                            <input type="hidden" name="incomeId" value="{{ $rangeIncome->id ?? '' }}">
-                                            
-                                            <label for="date" style="font-weight: 700;">{{ __('Data: ') }}</label>
-                                            <label><input type="date" id="date" name="transaction_date" min="2000-01-01" value="{{ $rangeIncome->transaction_date ?? '' }}"></label>
-                                            <br />
-                                            @error('transaction_date')
-                                                <span class="alert alert-danger">{{ $message }}</span>
-                                            @enderror 
-                                            
-                                            <label for="income" style="font-weight: 700;">{{ __('Kwota:') }}</label>
-                                            <label><input type="number" id="income" name="amount" placeholder="Podaj kwotę przychodu" step="0.01" min="0.00" value="{{ $rangeIncome->amount ?? '' }}"></label><br />
-                                            <br />
-                                            
-                                            <label for="category" style="font-weight: 700;">{{ __('Kategoria transakcji:') }}</label>
-                                            <select id="category" name="category_name" style="width:100%;">
-                                            @foreach($nameOfIncomes as $nameOfIncome)
-                                                @if ($rangeIncome->category_user_id == $nameOfIncome->id)
-                                                    <option value="{{ $rangeIncome->id }}" selected>{{ $nameOfIncome->category_name }}</option>
-                                                @else
-                                                    <option value="{{ $rangeIncome->id }}">{{ $nameOfIncome->category_name }}</option>
-                                                @endif
-                                            @endforeach
-                                            </select>
-                                                                                
-                                            <label for="description" class="relative" value="{{ $rangeIncome->description ?? '' }}">{{ __('Komentarz (opcjonalnie):') }}</label>
-                                            <br />
-                                            <textarea name="description" id="description" rows="4" cols="25" min="3" maxlength="100"></textarea>
+                                    <form method="POST"action='/balances/editIncome'>
+                                        @csrf
+                                        <input type="hidden" name="incomeId" value="{{ $rangeIncome->id ?? '' }}">
+                                        
+                                        <label for="date" style="font-weight: 700;">{{ __('Data: ') }}</label>
+                                        <label><input type="date" id="date" name="transaction_date" min="2000-01-01" value="{{ $rangeIncome->transaction_date ?? '' }}"></label>
+                                        <br />
+                                        @error('transaction_date')
+                                            <span class="alert alert-danger">{{ $message }}</span>
+                                        @enderror 
+                                        
+                                        <label for="income" style="font-weight: 700;">{{ __('Kwota:') }}</label>
+                                        <label><input type="number" id="income" name="amount" placeholder="Podaj kwotę przychodu" step="0.01" min="0.00" value="{{ $rangeIncome->amount ?? '' }}"></label>
+                                        <br />
+                                        @error('amount')
+                                            <span class="alert alert-danger">{{ $message }}</span>
+                                        @enderror 
+                                        
+                                        <label for="category" style="font-weight: 700;">{{ __('Kategoria transakcji:') }}</label>
+                                        <select id="category" name="category_name" style="width:100%;">
+                                        @foreach($nameOfIncomes as $nameOfIncome)
+                                            @if ($nameOfIncome->id == $rangeIncome->category_user_id)
+                                                <option value="{{ $nameOfIncome->id }}" selected>{{ $nameOfIncome->category_name }}</option>
+                                            @else
+                                                <option value="{{ $nameOfIncome->id }}">{{ $nameOfIncome->category_name }}</option>
+                                            @endif
+                                        @endforeach
+                                        </select>
+                                                                            
+                                        <label for="description" class="relative" value="{{ $rangeIncome->description ?? '' }}">{{ __('Komentarz (opcjonalnie):') }}</label>
+                                        <br />
+                                        <textarea name="description" id="description" rows="4" cols="25" min="3" maxlength="100"></textarea>
 
-                                            <div class="modal-footer">
-                                                <input type="submit" class="btn btn-primary" value="Zapisz">
+                                        <div class="modal-footer">
+                                            <input type="submit" class="btn btn-primary" value="Zapisz">
 
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
 
-                                            </div>
-                                        </form>
+                                        </div>
+                                    </form>
                                     </div>
-
                                 </div>
                             </div>
-                        </div>
-
+                            </div>
                         </tr>
                         @endforeach
                     @elseif($rangeIncomes->count() == 0)
@@ -220,27 +222,147 @@
                 </table>
             </div>
 
+            <div class="tileExpenses col-12  mb-3">
+                <h2 class="h3 font-weight-bold my-2">Wydatki</h2>
+                <table class="tg">
+                    <thead>
+                        <tr class="firstTr">
+                            <td class="tg-baqh">#</td>
+                            <td class="tg-baqh">Data</td>
+                            <td class="tg-baqh">Kwota</td>
+                            <td class="tg-baqh">Sposób płatności</td>
+                            <td class="tg-baqh">Kategoria</td>
+                            <td class="tg-baqh">Komentarz</td>
+                            <td class="tg-baqh">Edytuj</td>
+                            <td class="tg-baqh">Kasuj</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if( !($rangeExpenses->isEmpty()))
+                        @foreach($rangeExpenses as $rangeExpense)
+                        <tr class="expenseTr">
+                            <td class="tg-baqh">{{ $rangeExpense->id ?? '' }}</td>
+                            <td class="tg-baqh">{{ $rangeExpense->transaction_date ?? '' }}</td>
+                            <td class="tg-baqh">{{ number_format($rangeExpense->amount, 2) ?? '' }}</td>
+                            @foreach($nameOfPayOptions as $nameOfPayOption)
+                                @if($rangeExpense->payment_method_id == $nameOfPayOption->id )
+                                    <td class="tg-baqh">{{ $nameOfPayOption->payment_method ?? '' }}</td>
+                                @endif
+                            @endforeach   
+                            @foreach($nameOfExpenses as $nameOfExpense)
+                                @if($rangeExpense->category_user_id == $nameOfExpense->id )
+                                    <td class="tg-baqh">{{ $nameOfExpense->category_name ?? '' }}</td>
+                                @endif
+                            @endforeach   
+                            <td class="tg-baqh">{{ $rangeExpense->description ?? '' }}</td>
+                            <td class="tg-baqh edit" data-toggle="modal" data-target="#editExpenseModal{{ $rangeExpense->id ?? '' }}"><i class="icon-edit"></i></td>
+                            <td class="tg-baqh delete" data-toggle="modal" data-target="#dataExpenseToTrasch{{ $rangeExpense->id ?? '' }}"><i class="icon-trash"></i></td>
+                           
+                            <!-- Modal Expense-->
+                            <div class="modal" id="editExpenseModal{{ $rangeExpense->id ?? '' }}" tabindex="-1" role="dialog" style="color:black;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edytuj wydatek nr: {{ $rangeExpense->id ?? '' }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="text-align:left !important;">
+                                    <form method="POST"action='/balances/editExpense'>
+                                        @csrf
+                                        <input type="hidden" name="expenseId" value="{{ $rangeExpense->id ?? '' }}">
+                                        
+                                        <label for="dateE" style="font-weight: 700;">{{ __('Data: ') }}</label>
+                                        <label><input type="date" id="dateE" name="transaction_date" min="2000-01-01" value="{{ $rangeExpense->transaction_date ?? '' }}"></label>
+                                        @error('transaction_date')
+                                            <span class="alert alert-danger">{{ $message }}</span>
+                                        @enderror 
+                                        <br />
 
+                                        <label for="expense" style="font-weight: 700;">{{ __('Kwota: ') }}</label> 
+                                        <label><input type="number" id="expense" name="amount" placeholder="Podaj kwotę wydatku" step="0.01" min="0.00" value="{{ $rangeExpense->amount ?? '' }}"></label>
+                                        <br />
+                                        @error('amount')
+                                        <span class="alert alert-danger">{{ $message }}</span>
+                                        @enderror 
 
+                                        <label for="payment_method_id" style="font-weight: 700;">{{ __('Sposób płatności transakcji: ') }}</label>
+                                        <br />
+                                        <fieldset>
+                                            @if( $nameOfPayOptions->count() > 0)
+                                                @foreach($nameOfPayOptions as $nameOfPayOption)
+                                                    @if($nameOfPayOption->id == $rangeExpense->payment_method_id)
+                                                        <div><label><input type='radio' value="{{ $nameOfPayOption->id ?? '' }}" name='payment_method_id' checked>{{ $nameOfPayOption->payment_method ?? '' }}</label></div>
+                                                    @else                                                                        
+                                                        <div><label><input type='radio' value="{{ $nameOfPayOption->id ?? '' }}" name='payment_method_id'>{{ $nameOfPayOption->payment_method ?? '' }}</label></div>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </fieldset>
 
+                                        <label for="categoryE" style="font-weight: 700;">{{ __('Kategoria transakcji: ') }}</label>
+                                        <br />
+                                        <select id="categoryE" name="category_name" style="width:100%;">
+                                            @foreach($nameOfExpenses as $nameOfExpense)
+                                                @if ($nameOfExpense->id == $rangeExpense->category_user_id)
+                                                    <option value="{{ $nameOfExpense->id }}" selected>{{ $nameOfExpense->category_name }}</option>
+                                                @else
+                                                    <option value="{{ $nameOfExpense->id }}">{{ $nameOfExpense->category_name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
 
+                                        <label for="description" class="relative" value="{{ $rangeExpense->description ?? '' }}">{{ __('Komentarz (opcjonalnie):') }}</label>
+                                            <br />
+                                            <textarea name="description" id="description" rows="4" cols="25" min="3" maxlength="100"></textarea>
 
+                                        <div class="modal-footer">
+                                            <input type="submit" class="btn btn-primary" value="Zapisz">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>                        
+                        </tr>
+                        @endforeach
+                    @elseif($rangeExpense->count() == 0)
+                        { __('BRAK PRZYCHODÓW NA TEN MIESIĄC')}
+                    @else
+                        <span style="color:red;">{ __('BRAK POŁĄCZENIA Z SERWEREM, PRZEPRASZAMY SPRÓBUJ PÓŹNIEJ')}</span>';
+                    @endif
+                    </tbody>
+                </table>
+            </div>
 
-
-
-
-
-
-    
-<div style="width: 50%" class='chartStyle'>
-    {!! $chart->container() !!}
-</div>
-    {!! $chart->script() !!}
-</div>
+            <div class="col-sm-12 mx-auto my-auto" style="padding: 0;">
+                <div class="tile mb-3">
+                    <h2 class="h3 font-weight-bold my-3 mx-auto ">Bilans na dany okres: {{ $totalCost }}</h2>
+                    @if($totalCost > 0)
+                        <div class="text-uppercase" style="font-weight: 700; color:#3A6623;">Gratulacje. Świetnie zarządzasz finansami!</div>                                
+                    @elseif($totalCost == 0)
+                        <div class="text-uppercase" style="font-weight: 700; color:#595959;">Jest dobrze, choć może być lepiej :)</div> 
+                    @else
+                        <div class="text-uppercase" style="font-weight: 700; color:#b22222;">Uważaj, wpadasz w długi!</div>                                
+                    @endif                          
+                </div>
+            </div>
+            
+   
+            <div style="width: 75%" class='chartStyle'>
+                {!! $chart->container() !!}
+            </div>
+                {!! $chart->script() !!}
+            </div>
+        </div>
+    </div>
 </article>
 
 @endsection
-   
+
+@push('info')
 @if(isset($dochodZaktualizowany))
 {        
     <script type='text/javascript'>
@@ -251,7 +373,7 @@
     unset($dochodZaktualizowany);
 }
 @endif
-
+@endpush
 
 @else
 <script>

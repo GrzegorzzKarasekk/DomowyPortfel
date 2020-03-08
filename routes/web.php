@@ -38,6 +38,8 @@ Route::post('/expense', 'ExpenseController@create');
 Route::get('/balances', 'BalancesController@index');
 Route::get('/balances/unregular', 'BalancesController@unregular');
 
+Route::post('/balances/editIncome','IncomeController@editIncomeFromBilance');
+Route::post('/balances/editExpense','ExpenseController@editExpenseFromBilance');
 
 
 

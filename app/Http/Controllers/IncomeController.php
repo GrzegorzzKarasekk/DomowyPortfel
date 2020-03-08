@@ -66,30 +66,29 @@ class IncomeController extends Controller
 
     public function editIncomeFromBilance(Request $request){
         
-        $dataczas = new DateTime();
-        $today_date = $dataczas->format('Y-m-d');
+        $now = Carbon::now();   
+        $today_date = $now->format('Y-m-d');
 
         $this->validate($request,[
-            'amount' => ['required', 'numeric', 'min:0.01'],
             'transaction_date' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
+            'amount' => ['required', 'numeric', 'min:0.01'],            
+            'category_name' => ['required'],
         ]);
         
-        ;
-        
         if(DB::table('incomes')
-        ->where('id', $request->incomeId)
+        ->where('id', '=', $request->incomeId)
         ->update([
             'category_user_id' => $request['category_name'],
             'amount' => $request['amount'],
             'transaction_date' => $request['transaction_date'],
-            'description' => $request['description'], 
+            'description' => $request['description'],           
             
             ]))
         {
-            return redirect()->back()->with('dochodZaktualizowany', 'Przychód został zauktualizowany!'); 
+            return redirect()->back()->with('success', 'PRZYCHÓD ZAKTUALIZOWANY!'); 
         }
         else
-        return redirect()->back()->with('dochodZaktualizowany', 'Problem z serwerem. Rekord NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
+        return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
 
     }
 

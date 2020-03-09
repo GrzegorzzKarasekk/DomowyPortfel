@@ -32,24 +32,26 @@ class IncomeController extends Controller
         // echo $today_date;
 
         $this->validate($request,[
-            'amount' => ['required', 'numeric', 'min:0.00'],
+            'amount' => ['required', 'numeric', 'min:0.01'],
             'transaction_date' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
         ]);
         
         $userId = Auth::id();
         // $userId = Auth::user()->id;
-
+        // $request['amount']->number_format((float)$subtotal, 2, '.', '');
         //Dodawanie do bazy
-        Income::create([
+        if(Income::create([
             'user_id' => $userId,
             'category_user_id' => $request['category_name'],
             'amount' => $request['amount'],
             'transaction_date' => $request['transaction_date'],
             'description' => $request['description'],            
-        ]);
-
-        //return redirect($this->redirectPath());
-        return redirect()->back()->with('success', 'DODAŁEŚ NOWY PRZYCHÓD!'); 
+        ]))
+        {
+            return redirect()->back()->with('success', 'DODAŁEŚ NOWY PRZYCHÓD!'); 
+        }
+        else
+        return redirect()->back()->with('danger', 'NIE UDAŁO SIĘ DODAĆ PRZUCHODU :('); 
         //redirect()->back()->with('success', 'your message here');   
     }
 
@@ -58,18 +60,50 @@ class IncomeController extends Controller
         $now = Carbon::now();   
         $today_date = $now->format('Y-m-d');
         $options = DB::table('users_incomes')->where('user_id', '=', Auth::id())->get(); 
-        
-
-        // foreach ($options as $option) {
-        //     echo $option->id;
-        //     echo $option->category_name;
-            
-        // }
-        
-        //var_dump($options);
 
         return view('incomes.index', compact('today_date', 'options'));
     }    
+
+    public function editIncomeFromBalance(Request $request){
+        
+        $now = Carbon::now();   
+        $today_date = $now->format('Y-m-d');
+
+        $this->validate($request,[
+            'transaction_date' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
+            'amount' => ['required', 'numeric', 'min:0.01'],            
+            'category_name' => ['required'],
+        ]);
+        
+        if(DB::table('incomes')
+        ->where('id', '=', $request->incomeId)
+        ->update([
+            'category_user_id' => $request['category_name'],
+            'amount' => $request['amount'],
+            'transaction_date' => $request['transaction_date'],
+            'description' => $request['description'],           
+            
+            ]))
+        {
+            return redirect()->back()->with('success', 'PRZYCHÓD ZAKTUALIZOWANY!'); 
+        }
+        else
+            return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
+
+    }
+
+
+    public function deleteIncomeFromBalance(Request $request){
+        
+        if(DB::table('incomes')->where('id', '=', $request->incomeId)->delete())
+        {
+            return redirect()->back()->with('success', 'PRZYCHÓD ZAKTUALIZOWANY!'); 
+        }
+        else
+            return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ USUNIĘTY!'); 
+
+    }
+
 
 
 

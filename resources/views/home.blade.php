@@ -25,12 +25,12 @@
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="przegladaj-bilans">Przeglądaj bilans</a></li>
+        <li class="nav-item mx-4"><a href="{{ url('/balances') }}">Przeglądaj bilans</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="zmien-ustawienia">Ustawienia</a></li>
+        <li class="nav-item mx-4"><a href="{{ url('/settings') }}">Ustawienia</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
@@ -45,6 +45,7 @@
 @section('content')
 <article class="walletspage">
     <div class="container">
+       
         <header>
             <h1 class='font-weight-bold text-uppercase mb-2'>Witaj {{ Auth::user()->name }} :D</h1>
             <div class="quotation text-justify mb-4" style="font-size:20px">
@@ -73,7 +74,7 @@
         </div>
 
         <div class="row my-2">
-            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='przegladaj-bilans'">
+            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='{{ url('/balances') }}'">
                 <div class="tileMenu">
                     <div id="menuTile3">
                         <i class="icon-calc display-inline-block"></i>
@@ -84,7 +85,7 @@
         </div>
 
         <div class="row mb-4">
-            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='zmien-ustawienia'">
+            <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='{{ url('/settings') }}'">
                 <div class="tileMenu">
                     <div id="menuTile4">
                         <i class="icon-cog-alt display-inline-block"></i>
@@ -102,6 +103,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </article>
 @endsection

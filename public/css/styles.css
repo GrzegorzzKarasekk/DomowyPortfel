@@ -156,19 +156,19 @@ h2 {
 
 /* ERRORS */
 .alert {
-    font-size: 50% !important;
-    text-align: left !important;
+    font-size: 90% !important;
+    text-align: center !important;
 }
 .alert-info {
     color: rgb(156, 156, 25) !important;
 }
 .alert-success {
     color: #088012 !important;
-    font-size: 20px;
-    text-align: justify;
+    
 }
 .alert-danger {
     color: #8F1E19 !important;
+    font-size: 75% !important;
 }
 
 /* Układ formularzy */
@@ -425,3 +425,79 @@ q:after {
     background-color: transparent;
     border: 0;
 }
+
+/* Wykres */
+.chartStyle{
+    min-width: 320px; 
+    max-width: 1000px;
+    margin: 1em auto;
+    border: 5px solid #A69886;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 0;
+}
+/* Balances */
+.dateBalance {
+    padding: 0;
+}
+.textIn{
+    color: #A69886;
+    font-size: 20px;
+    font-weight: bold;
+}
+/* TILE INCOMES AND EXPENSES */
+.tileIncomes {
+    float: left;
+    border: 4px solid #A69886;
+    background-color: #10A14A;
+    border-radius: 10px;
+    padding: 5px;
+
+}
+
+.incomeTr:hover {
+    background-color: rgb(41, 124, 74);
+}
+
+.tileExpenses {
+    float: left;
+    border: 4px solid #A69886;
+    background-color: #108A86;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.expenseTr:hover {
+    background-color: rgb(36, 88, 87);
+}
+
+table {
+    width: 100%;
+    border: 2px ridge #A69886;
+    margin-bottom: 0px;
+}
+
+.firstTr {
+    background-color: #A6A6A6;
+    border-bottom: 2px ridge #594A3E;
+}
+
+tr {
+    border: 1px dashed #A69886;
+}
+
+td {
+    border: 1px dashed #594A3E;
+}
+
+.edit:hover {
+    background-color: #0D1170;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #9C1311;
+    cursor: pointer;
+
+}
+

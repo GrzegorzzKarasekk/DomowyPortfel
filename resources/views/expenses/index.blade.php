@@ -30,12 +30,12 @@
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="przegladaj-bilans">Przeglądaj bilans</a></li>
+        <li class="nav-item mx-4"><a href="/balances">Przeglądaj bilans</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="zmien-ustawienia">Ustawienia</a></li>
+        <li class="nav-item mx-4"><a href="/settings">Ustawienia</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
@@ -53,11 +53,15 @@
 
 @section('content')
 
-    @if (\Session::has('success'))
+@if (\Session::has('success'))
     <div class="alert alert-success">
         {!! \Session::get('success') !!}
     </div>
-    @endif
+    @elseif (\Session::has('danger'))    
+    <div class="alert alert-danger">
+        {!! \Session::get('danger') !!}
+    </div>
+@endif
 
 <article class="walletspage">
     <div class="container">
@@ -110,6 +114,11 @@
                                     @endif
                                 @endforeach
                             </fieldset>
+                            <div>
+                                @error('pay_option')
+                                    <span class="alert alert-danger">{{ $message }}</span>
+                                @enderror                      
+                            </div>
                         </div>
 
                         <div class="wrapperForm col-12 col-md-6 mx-auto my-3 mb-2">

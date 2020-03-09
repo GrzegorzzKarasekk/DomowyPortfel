@@ -60,7 +60,7 @@
 
             <a class="dropdown-item" href="/balances/lastMonth"> Poprzedni miesiąc</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/balances/ThisYear"> Bieżący rok</a>
+            <a class="dropdown-item" href="/balances/thisYear"> Bieżący rok</a>
             <div class="dropdown-divider"></div>
             <a class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#unregularModal" href="/balances/unregular"> Niestandardowy</a>
             <div class="dropdown-divider"></div>

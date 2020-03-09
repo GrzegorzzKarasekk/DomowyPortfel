@@ -2,7 +2,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'Przeglądaj bilans z wybranego okresu')
+@section('title', 'Przeglądaj bilans z poprzedniego miesiąca')
 
 @push('scripts')
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -128,7 +128,7 @@
 <article class="walletspage">
     <div class="container">
         <header class="dateBalance">
-            <h1 class="font-weight-bold text-uppercase mb-2">Bilans za okres</h1>
+            <h1 class="font-weight-bold text-uppercase mb-2">Bilans za poprzedni miesiąc</h1>
             <div class="textIn" style="color: #594A3E; font-size: 20px; font-weight: bold;">
                 Od: {{ $firstDay }} do: {{ $lastDay }}
             </div>
@@ -251,7 +251,7 @@
                     </tr>
                     @endforeach
                 @elseif($rangeIncomes->count() == 0)
-                    BRAK PRZYCHODÓW NA TEN MIESIĄC
+                    BRAK PRZYCHODÓW W POPRZEDNIM MIESIĄCU
                 @else
                     <span style="color:red;">BRAK POŁĄCZENIA Z SERWEREM, PRZEPRASZAMY SPRÓBUJ PÓŹNIEJ</span>
                 @endif
@@ -393,7 +393,7 @@
                             </tr>
                         @endforeach
                     @elseif($rangeExpenses->count() == 0)
-                        BRAK WYDATKÓW NA TEN OKRES
+                        BRAK WYDATKÓW W POPRZEDNIM MIESIĄCU
                     @else
                         <span style="color:red;">BRAK POŁĄCZENIA Z SERWEREM, PRZEPRASZAMY SPRÓBUJ PÓŹNIEJ</span>';
                     @endif
@@ -416,7 +416,6 @@
                     </div>
             </div>
         </div>
-
         @if($rangeExpenses->count() > 0)
             <div style="width: 75%" class='chartStyle'>
                 {!! $chart->container() !!}
@@ -427,7 +426,6 @@
 </article>
 
 @endsection
-
 @else
 <script>
     window.location = "/login";

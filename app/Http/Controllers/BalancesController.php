@@ -44,6 +44,70 @@ class BalancesController extends Controller
         return view('balances.index', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'nameOfIncomes', 'rangeExpenses', 'nameOfPayOptions', 'nameOfExpenses', 'totalCost'));
     }    
 
+    public function lastMonth()
+    {
+        $start = Carbon::now();   
+        $today_date = $start->format('Y-m-d');
+
+        $firstDay = new Carbon('first day of last month');
+        $firstDay = $firstDay->format('Y-m-d');
+        $lastDay =  new Carbon('last day of last month');
+        $lastDay = $lastDay->format('Y-m-d');
+        //Dochody
+        $rangeIncomes = DB::table('incomes')->where('user_id', '=', Auth::id())->whereBetween('transaction_date',[$firstDay, $lastDay])->get(); 
+        $nameOfIncomes = DB::table('users_incomes')->where('user_id', '=', Auth::id())->get(); 
+        //Wydatki
+        $rangeExpenses = DB::table('expenses')->where('user_id', '=', Auth::id())->whereBetween('transaction_date',[$firstDay, $lastDay])->get(); 
+        $nameOfExpenses = DB::table('users_expenses')->where('user_id', '=', Auth::id())->get(); 
+        $nameOfPayOptions = DB::table('users_payment_methods')->where('user_id', '=', Auth::id())->get(); 
+        //Stworzenie tabeli wydatków
+        BalancesController::createTableUserExpenses($firstDay, $lastDay);
+        //Stworzenie wykresu na podstawie tabeli
+        $chart = BalancesController::createChart($firstDay, $lastDay);
+             
+        $costOfIncomes = BalancesController::sumOfIncomes($rangeIncomes);
+
+        $costOfExpenses = BalancesController::sumOfExpenses($rangeExpenses);        
+
+        
+        $totalCost = $costOfIncomes - $costOfExpenses;
+
+
+        return view('balances.lastMonth', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'nameOfIncomes', 'rangeExpenses', 'nameOfPayOptions', 'nameOfExpenses', 'totalCost'));
+    }    
+
+    public function thisYear()
+    {
+        $start = Carbon::now();   
+        $today_date = $start->format('Y-m-d');
+
+        $firstDay = new Carbon('first day of January this year');
+        $firstDay = $firstDay->format('Y-m-d');
+               
+        $lastDay = $today_date;
+        //Dochody
+        $rangeIncomes = DB::table('incomes')->where('user_id', '=', Auth::id())->whereBetween('transaction_date',[$firstDay, $lastDay])->get(); 
+        $nameOfIncomes = DB::table('users_incomes')->where('user_id', '=', Auth::id())->get(); 
+        //Wydatki
+        $rangeExpenses = DB::table('expenses')->where('user_id', '=', Auth::id())->whereBetween('transaction_date',[$firstDay, $lastDay])->get(); 
+        $nameOfExpenses = DB::table('users_expenses')->where('user_id', '=', Auth::id())->get(); 
+        $nameOfPayOptions = DB::table('users_payment_methods')->where('user_id', '=', Auth::id())->get(); 
+        //Stworzenie tabeli wydatków
+        BalancesController::createTableUserExpenses($firstDay, $lastDay);
+        //Stworzenie wykresu na podstawie tabeli
+        $chart = BalancesController::createChart($firstDay, $lastDay);
+             
+        $costOfIncomes = BalancesController::sumOfIncomes($rangeIncomes);
+
+        $costOfExpenses = BalancesController::sumOfExpenses($rangeExpenses);        
+
+        
+        $totalCost = $costOfIncomes - $costOfExpenses;
+
+
+        return view('balances.thisYear', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'nameOfIncomes', 'rangeExpenses', 'nameOfPayOptions', 'nameOfExpenses', 'totalCost'));
+    }    
+
 
     public function unregular(Request $request)
     {
@@ -82,13 +146,6 @@ class BalancesController extends Controller
         return view('balances.unregular', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'nameOfIncomes', 'rangeExpenses', 'nameOfPayOptions', 'nameOfExpenses', 'totalCost'));
 
     }
-
-
-
-
-
-
-
 
     public function createTableUserExpenses($firstDay, $lastDay)
     {

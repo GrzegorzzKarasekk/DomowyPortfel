@@ -116,7 +116,7 @@ class ExpenseController extends Controller
         
         if(DB::table('expenses')->where('id', '=', $request->expenseId)->delete())
         {
-            return redirect()->back()->with('success', 'PRZYCHÓD ZOSTAŁ USUNIĘTY!'); 
+            return redirect()->back()->with('success', 'WYDATEK ZOSTAŁ USUNIĘTY!'); 
         }
         else
             return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ USUNIĘTY!'); 

@@ -36,15 +36,8 @@ Route::post('/expense', 'ExpenseController@create');
 
 //Balances
 Route::get('/balances', 'BalancesController@index');
-
-
-// Route::post('/balances/unregular', 'BalancesController@unregular');
-// Route::post('/balances/unregular',function () {
-//     $firstDay = $unregularDay1;
-//     $unregularDay2 = $unregularDay2;
-//     event(new FormSubmitted($unregularDay1, $unregularDay2));
-// });
-
+Route::get('/balances/lastMonth', 'BalancesController@lastMonth');
+Route::get('/balances/thisYear', 'BalancesController@thisYear');
 Route::post('/balances/unregular','BalancesController@unregular')->name('unregular');
 
 

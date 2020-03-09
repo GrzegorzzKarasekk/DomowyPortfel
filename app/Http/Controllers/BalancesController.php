@@ -14,49 +14,13 @@ use App\Charts\UserExpensesChart;
 class BalancesController extends Controller
 {
 
-    protected function unregular(Request $request)
-    {
-
-        $dataczas = new DateTime();
-        $today_date = $dataczas->format('Y-m-d');
-
-        // echo $request['transaction_date'];
-        // echo "</br>";
-        // echo $today_date;
-
-        $this->validate($request,[
-            'unregularDay1' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
-            'unregularDay2' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
-        ]);
-        
-        // $userId = Auth::id();
-        // // $userId = Auth::user()->id;
-
-        // //Dodawanie do bazy
-        // if(Income::create([
-        //     'user_id' => $userId,
-        //     'category_user_id' => $request['category_name'],
-        //     'amount' => $request['amount'],
-        //     'transaction_date' => $request['transaction_date'],
-        //     'description' => $request['description'],            
-        // ]))
-        // {
-        //     return redirect()->back()->with('success', 'DODAŁEŚ NOWY PRZYCHÓD!'); 
-        // }
-        // else
-        // return redirect()->back()->with('danger', 'NIE UDAŁO SIĘ DODAĆ PRZUCHODU :('); 
-        //redirect()->back()->with('success', 'your message here');   
-    }
-
     public function index()
     {
         $start = Carbon::now();   
         $today_date = $start->format('Y-m-d');
         $firstDay = $start->firstOfMonth()->format('Y-m-d');
         $lastDay = $start->lastOfMonth()->format('Y-m-d');
-
-            
-        
+     
         //Dochody
         $rangeIncomes = DB::table('incomes')->where('user_id', '=', Auth::id())->whereBetween('transaction_date',[$firstDay, $lastDay])->get(); 
         $nameOfIncomes = DB::table('users_incomes')->where('user_id', '=', Auth::id())->get(); 
@@ -67,7 +31,7 @@ class BalancesController extends Controller
         //Stworzenie tabeli wydatków
         BalancesController::createTableUserExpenses($firstDay, $lastDay);
         //Stworzenie wykresu na podstawie tabeli
-        $chart = BalancesController::createChart();
+        $chart = BalancesController::createChart($firstDay, $lastDay);
              
         $costOfIncomes = BalancesController::sumOfIncomes($rangeIncomes);
 
@@ -79,6 +43,51 @@ class BalancesController extends Controller
 
         return view('balances.index', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'nameOfIncomes', 'rangeExpenses', 'nameOfPayOptions', 'nameOfExpenses', 'totalCost'));
     }    
+
+
+    public function unregular(Request $request)
+    {
+
+        $start = Carbon::now(); 
+        $today_date = $start->format('Y-m-d');
+
+
+        $this->validate($request,[
+            'unregularDay1' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
+            'unregularDay2' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
+        ]);
+        
+        $firstDay = $request->unregularDay1;
+        $lastDay = $request->unregularDay2;
+
+        $rangeIncomes = DB::table('incomes')->where('user_id', '=', Auth::id())->whereBetween('transaction_date',[$firstDay, $lastDay])->get(); 
+        $nameOfIncomes = DB::table('users_incomes')->where('user_id', '=', Auth::id())->get(); 
+        //Wydatki
+        $rangeExpenses = DB::table('expenses')->where('user_id', '=', Auth::id())->whereBetween('transaction_date',[$firstDay, $lastDay])->get(); 
+        $nameOfExpenses = DB::table('users_expenses')->where('user_id', '=', Auth::id())->get(); 
+        $nameOfPayOptions = DB::table('users_payment_methods')->where('user_id', '=', Auth::id())->get(); 
+        //Stworzenie tabeli wydatków
+        BalancesController::createTableUserExpenses($firstDay, $lastDay);
+        //Stworzenie wykresu na podstawie tabeli
+        $chart = BalancesController::createChart($firstDay, $lastDay);
+             
+        $costOfIncomes = BalancesController::sumOfIncomes($rangeIncomes);
+
+        $costOfExpenses = BalancesController::sumOfExpenses($rangeExpenses);        
+
+        
+        $totalCost = $costOfIncomes - $costOfExpenses;
+
+
+        return view('balances.unregular', compact('chart','today_date', 'firstDay', 'lastDay', 'rangeIncomes', 'nameOfIncomes', 'rangeExpenses', 'nameOfPayOptions', 'nameOfExpenses', 'totalCost'));
+
+    }
+
+
+
+
+
+
 
 
     public function createTableUserExpenses($firstDay, $lastDay)
@@ -128,7 +137,7 @@ class BalancesController extends Controller
         
     }
  
-    public function createChart()
+    public function createChart($firstDay, $lastDay)
     {
         
         //Pobranie danych do odczytu wykresu
@@ -144,14 +153,16 @@ class BalancesController extends Controller
         {
             $howMany = $userDataExpenses->count();
             $colors = BalancesController::getRandomColor($howMany);
-                        
+             
+            $title = 'Wydatki użytkownika w okresie od:'.$firstDay.' do:'.$lastDay;
+
             $chart = new UserExpensesChart;
-            $chart->title('Wydatki użytkownika w danym okresie');
+            //$chart->title($title);
+            $chart->title($title, $font_size = '150%', $color = '#A69886', $bold = true);
             $chart->dataset('Łączny wydatek', 'pie', $userDataExpenses->pluck('amount'))->options(['color' => $colors]);
             // $chart->dataset('Łączny wydatek w zł', 'pie', $userDataExpenses->pluck('amount'));
             $chart->labels($userDataExpenses->pluck('category_name'));
             $chart->doughnut($size = 50);//pączek
-            //$chart->tooltip(['valueSuffix'=> "zł"]); 
             $chart->options([
                 'tooltip' => [
                     'valueSuffix' => ' zł '
@@ -166,6 +177,9 @@ class BalancesController extends Controller
                             'connectorColor' => 'silver'
                         ]
                     ]
+                ],
+                'chart'=> [
+                    'backgroundColor' => 'transparent',
                 ]
             ]);
             $chart->options([

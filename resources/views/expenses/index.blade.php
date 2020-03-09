@@ -30,12 +30,12 @@
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="przegladaj-bilans">Przeglądaj bilans</a></li>
+        <li class="nav-item mx-4"><a href="/balances">Przeglądaj bilans</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="zmien-ustawienia">Ustawienia</a></li>
+        <li class="nav-item mx-4"><a href="/settings">Ustawienia</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>

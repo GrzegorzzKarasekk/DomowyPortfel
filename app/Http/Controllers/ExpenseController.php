@@ -71,7 +71,7 @@ class ExpenseController extends Controller
         return view('expenses.index', compact('today_date', 'options', 'payoptions'));
     }    
 
-    public function editExpenseFromBilance(Request $request){
+    public function editExpenseFromBalance(Request $request){
         
         $now = Carbon::now();   
         $today_date = $now->format('Y-m-d');
@@ -109,6 +109,17 @@ class ExpenseController extends Controller
         }
         else
         return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
+
+    }
+
+    public function deleteExpenseFromBalance(Request $request){
+        
+        if(DB::table('expenses')->where('id', '=', $request->expenseId)->delete())
+        {
+            return redirect()->back()->with('success', 'PRZYCHÓD ZOSTAŁ USUNIĘTY!'); 
+        }
+        else
+            return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ USUNIĘTY!'); 
 
     }
 

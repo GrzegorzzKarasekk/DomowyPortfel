@@ -156,19 +156,19 @@ h2 {
 
 /* ERRORS */
 .alert {
-    font-size: 50% !important;
-    text-align: left !important;
+    font-size: 90% !important;
+    text-align: center !important;
 }
 .alert-info {
     color: rgb(156, 156, 25) !important;
 }
 .alert-success {
     color: #088012 !important;
-    font-size: 20px;
-    text-align: justify;
+    
 }
 .alert-danger {
     color: #8F1E19 !important;
+    font-size: 75% !important;
 }
 
 /* Układ formularzy */
@@ -429,7 +429,7 @@ q:after {
 /* Wykres */
 .chartStyle{
     min-width: 320px; 
-    max-width: 660px;
+    max-width: 1000px;
     margin: 1em auto;
     border: 5px solid #A69886;
     background-color: transparent;

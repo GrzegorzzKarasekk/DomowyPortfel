@@ -64,7 +64,7 @@ class IncomeController extends Controller
         return view('incomes.index', compact('today_date', 'options'));
     }    
 
-    public function editIncomeFromBilance(Request $request){
+    public function editIncomeFromBalance(Request $request){
         
         $now = Carbon::now();   
         $today_date = $now->format('Y-m-d');
@@ -88,9 +88,22 @@ class IncomeController extends Controller
             return redirect()->back()->with('success', 'PRZYCHÓD ZAKTUALIZOWANY!'); 
         }
         else
-        return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
+            return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
 
     }
+
+
+    public function deleteIncomeFromBalance(Request $request){
+        
+        if(DB::table('incomes')->where('id', '=', $request->incomeId)->delete())
+        {
+            return redirect()->back()->with('success', 'PRZYCHÓD ZAKTUALIZOWANY!'); 
+        }
+        else
+            return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ USUNIĘTY!'); 
+
+    }
+
 
 
 

@@ -36,10 +36,24 @@ Route::post('/expense', 'ExpenseController@create');
 
 //Balances
 Route::get('/balances', 'BalancesController@index');
-Route::get('/balances/unregular', 'BalancesController@unregular');
-
-Route::post('/balances/editIncome','IncomeController@editIncomeFromBilance');
-Route::post('/balances/editExpense','ExpenseController@editExpenseFromBilance');
 
 
+// Route::post('/balances/unregular', 'BalancesController@unregular');
+// Route::post('/balances/unregular',function () {
+//     $firstDay = $unregularDay1;
+//     $unregularDay2 = $unregularDay2;
+//     event(new FormSubmitted($unregularDay1, $unregularDay2));
+// });
+
+Route::post('/balances/unregular','BalancesController@unregular')->name('unregular');
+
+
+
+//Edit
+Route::post('/balances/editIncome','IncomeController@editIncomeFromBalance');
+Route::post('/balances/editExpense','ExpenseController@editExpenseFromBalance');
+
+//Delete
+Route::post('/balances/deleteIncome','IncomeController@deleteIncomeFromBalance');
+Route::post('/balances/deleteExpense','ExpenseController@deleteExpenseFromBalance');
 

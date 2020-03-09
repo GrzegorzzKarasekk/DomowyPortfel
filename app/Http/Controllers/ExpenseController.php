@@ -75,46 +75,40 @@ class ExpenseController extends Controller
         
         $now = Carbon::now();   
         $today_date = $now->format('Y-m-d');
-
+ 
         $this->validate($request,[
             'transaction_date' => ['required', 'max:255','date_format:Y-m-d', 'before_or_equal:today_date'],
-            'amount' => ['required', 'numeric', 'min:0.01'],            
+            'amount' => ['required', 'numeric', 'min:0.01'],
+            'payment_method_id' => ['required'],            
             'category_name' => ['required'],
-            'payment_method' => ['required'],
-
         ]);
+
+            // echo $request->expenseId;
+            // echo '<br />';
+            // echo $request->transaction_date;
+            // echo '<br />';
+            // echo $request->payment_method_id;
+            // echo '<br />';
+            // echo $request->category_name;
+            // echo '<br />';
+            // echo $request->description;
+            // echo '<br />';
+
+            if(DB::table('expenses')
+        ->where('id', '=', $request->expenseId)
+        ->update([
+            'category_user_id' => $request['category_name'],
+            'payment_method_id' => $request['payment_method_id'],
+            'amount' => $request['amount'],
+            'transaction_date' => $request['transaction_date'],
+            'description' => $request['description'],           
             
-
-
-
-            echo $request->expenseId;
-            echo '/br';
-            echo $request->transaction_date;
-            echo '/br';
-            echo $request->payment_method;
-            echo '/br';
-            echo $request->category_name;
-            echo '/br';
-            echo $request->description;
-            echo '/br';
-
-
-
-        // if(DB::table('expenses')
-        // ->where('id', '=', $request->expenseId)
-        // ->update([
-        //     'category_user_id' => $request['category_name'],
-        //     'payment_method_id' => $request['payment_method'],
-        //     'amount' => $request['amount'],
-        //     'transaction_date' => $request['transaction_date'],
-        //     'description' => $request['description'],           
-            
-        //     ]))
-        // {
-        //     return redirect()->back()->with('success', 'WYDATEK ZAKTUALIZOWANY!'); 
-        // }
-        // else
-        // return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
+            ]))
+        {
+            return redirect()->back()->with('success', 'WYDATEK ZAKTUALIZOWANY!'); 
+        }
+        else
+        return redirect()->back()->with('danger', 'Problem z serwerem. REKORD NIE ZOSTAŁ ZAKTUALIZOWANY!'); 
 
     }
 

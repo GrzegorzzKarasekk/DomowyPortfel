@@ -53,7 +53,7 @@
             </div>
         </header>
 
-        <div class="row mb-4">
+        <div class="row mb-2">
             <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='{{ url('/income') }}'">
                 <div class="tileMenu">
                     <div id="menuTile1">
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="row mb-4">
             <div class="col-sm-6 mx-auto my-auto" onclick="window.location.href='{{ url('/settings') }}'">
                 <div class="tileMenu">
@@ -98,12 +98,11 @@
                 <div class="tileMenu">
                     <div id="menuTile5">
                         <i class="icon-logout display-inline-block"></i>
-                        <input type="button" class="menuButton5 display-inline-block" value="Wyloguj się">
+                        <input type="button" class="menuButton5 display-inline-block" value=" Wyloguj się">
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div>             
     </div>
 </article>
 @endsection

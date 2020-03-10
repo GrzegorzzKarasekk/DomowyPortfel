@@ -12,6 +12,8 @@
 */
 Route::get('/', 'SitesController@index');
 Route::get('/hello', 'SitesController@hello');
+Route::get('/settings', 'SettingsController@index');
+
 // Uwierzytelnianie
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
@@ -39,14 +41,28 @@ Route::get('/balances', 'BalancesController@index');
 Route::get('/balances/lastMonth', 'BalancesController@lastMonth');
 Route::get('/balances/thisYear', 'BalancesController@thisYear');
 Route::post('/balances/unregular','BalancesController@unregular')->name('unregular');
-
-
-
-//Edit
+// BALANCES Edit
 Route::post('/balances/editIncome','IncomeController@editIncomeFromBalance');
 Route::post('/balances/editExpense','ExpenseController@editExpenseFromBalance');
 
-//Delete
+// BALANCES Delete
 Route::post('/balances/deleteIncome','IncomeController@deleteIncomeFromBalance');
 Route::post('/balances/deleteExpense','ExpenseController@deleteExpenseFromBalance');
+
+//Ustawienia
+//Przychody
+Route::post('/settings/newIncomeCategory', 'SettingsController@createNewIncomeNameCategory');
+Route::post('/settings/editIncomeCategory', 'SettingsController@changeIncomeNameCategory');
+Route::post('/settings/deleteIncomeCategory', 'SettingsController@deleteIncomeNameCategory');
+//Wydatki
+Route::post('/settings/newExpenseCategory', 'SettingsController@createNewExpenseNameCategory');
+Route::post('/settings/editExpenseCategory', 'SettingsController@changeExpenseNameCategory');
+Route::post('/settings/deleteExpenseCategory', 'SettingsController@deleteExpenseNameCategory');
+//Sposoby Płatności
+Route::post('/settings/newPaymentMethodCategory', 'SettingsController@createNewPaymentMethodNameCategory');
+Route::post('/settings/editPaymentMethodCategory', 'SettingsController@changePaymentMethodNameCategory');
+Route::post('/settings/deletePaymentMethodCategory', 'SettingsController@deletePaymentMethodNameCategory');
+//Użytkownik
+Route::post('/settings/editUser', 'SettingsController@changeTheUserData');
+Route::post('/settings/deleteUser', 'SettingsController@deleteUser');
 

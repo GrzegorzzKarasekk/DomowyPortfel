@@ -14,6 +14,16 @@
 
 
 @section('content')
+@if (\Session::has('success'))
+    <div class="alert alert-success">
+        {!! \Session::get('success') !!}
+    </div>
+    @elseif (\Session::has('danger'))    
+    <div class="alert alert-danger">
+        {!! \Session::get('danger') !!}
+    </div>
+@endif
+
 <div class="container">
     <header>
         <h1 class="font-weight-bold text-uppercase text-center mb-2">Witaj w Twoim domowym portfelu!</h1>

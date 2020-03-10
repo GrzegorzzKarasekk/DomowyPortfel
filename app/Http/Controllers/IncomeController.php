@@ -9,12 +9,18 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use DateTime;
 //use Symfony\Component\Console\Input\Input;
 
 class IncomeController extends Controller
 {
-    
+    public function index()
+    {
+        $now = Carbon::now();   
+        $today_date = $now->format('Y-m-d');
+        $options = DB::table('users_incomes')->where('user_id', '=', Auth::id())->get(); 
+
+        return view('incomes.index', compact('today_date', 'options'));
+    }    
     /**
      * Create a new income instance after a valid added income.
      *
@@ -24,12 +30,8 @@ class IncomeController extends Controller
     protected function create(Request $request)
     {
 
-        $dataczas = new DateTime();
-        $today_date = $dataczas->format('Y-m-d');
-
-        // echo $request['transaction_date'];
-        // echo "</br>";
-        // echo $today_date;
+        $now = Carbon::now();   
+        $today_date = $now->format('Y-m-d');
 
         $this->validate($request,[
             'amount' => ['required', 'numeric', 'min:0.01'],
@@ -55,16 +57,7 @@ class IncomeController extends Controller
         //redirect()->back()->with('success', 'your message here');   
     }
 
-    public function index()
-    {
-        $now = Carbon::now();   
-        $today_date = $now->format('Y-m-d');
-        $options = DB::table('users_incomes')->where('user_id', '=', Auth::id())->get(); 
-
-        return view('incomes.index', compact('today_date', 'options'));
-    }    
-
-    public function editIncomeFromBalance(Request $request){
+    protected function editIncomeFromBalance(Request $request){
         
         $now = Carbon::now();   
         $today_date = $now->format('Y-m-d');
@@ -93,7 +86,7 @@ class IncomeController extends Controller
     }
 
 
-    public function deleteIncomeFromBalance(Request $request){
+    protected function deleteIncomeFromBalance(Request $request){
         
         if(DB::table('incomes')->where('id', '=', $request->incomeId)->delete())
         {
@@ -104,9 +97,4 @@ class IncomeController extends Controller
 
     }
 
-
-
-
-
 }
-

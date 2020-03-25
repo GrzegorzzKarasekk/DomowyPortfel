@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-//use Symfony\Component\Console\Input\Input;
 
 class IncomeController extends Controller
 {
@@ -39,8 +38,6 @@ class IncomeController extends Controller
         ]);
         
         $userId = Auth::id();
-        // $userId = Auth::user()->id;
-        // $request['amount']->number_format((float)$subtotal, 2, '.', '');
         //Dodawanie do bazy
         if(Income::create([
             'user_id' => $userId,
@@ -54,7 +51,6 @@ class IncomeController extends Controller
         }
         else
         return redirect()->back()->with('danger', 'NIE UDAŁO SIĘ DODAĆ PRZUCHODU :('); 
-        //redirect()->back()->with('success', 'your message here');   
     }
 
     protected function editIncomeFromBalance(Request $request){

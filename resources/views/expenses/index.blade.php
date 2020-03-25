@@ -3,6 +3,11 @@
 
 @section('title', 'Dodaj swój wydatek')
 
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="{{ asset('js/showExpenseStatus.js') }}" type="text/javascript"></script>
+@endpush
+
 @section('navbar')
 <nav class="navbar navbar-dark bg-nav-Wallet navbar-expand-lg">
 
@@ -25,7 +30,7 @@
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
 
-        <li class="nav-item mx-4"><a href="/expese">Dodaj wydatek</a></li>
+        <li class="nav-item mx-4"><a href="/expense">Dodaj wydatek</a></li>
 
         <li role="separator" class="divider"></li>
         <div class="dropdown-divider"></div>
@@ -63,6 +68,8 @@
     </div>
 @endif
 
+<div id="expenseInfo" ></div>
+
 <article class="walletspage">
     <div class="container">
         <header>
@@ -82,7 +89,7 @@
                         <div class="wrapperForm col-12 col-md-6 mx-auto my-3 mb-2">
                             <label>
                                {{ __('Kwota:') }}</i>
-                                <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror" value="0.00" step="0.01" min="0.00" placeholder="Podaj kwotę przychodu" autofocus required>
+                                <input type="number" id="amount" name="amount" class="form-control @error('amount') is-invalid @enderror" value="0.00" step="0.01" min="0.00" placeholder="Podaj kwotę przychodu" autofocus required>
                             </label>
                             <div>
                                 @error('amount')
@@ -110,7 +117,7 @@
                                     @if (Input::old('pay_option') == $payoption->id)
 	                                    <div><label><input type="radio" name="pay_option" value="{{ $payoption->id }}" checked>{{ $payoption->payment_method }}</label></div>
                                     @else
-                                        <div><label><input type="radio" name="pay_option" value="{{ $payoption->id }}">{{ $payoption->payment_method }}</label></div>
+                                        <div><label><input type="radio" name="pay_option" value="{{ $payoption->id }} ">{{ $payoption->payment_method }}</label></div>
                                     @endif
                                 @endforeach
                             </fieldset>

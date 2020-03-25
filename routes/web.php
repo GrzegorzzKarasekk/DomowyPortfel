@@ -17,7 +17,6 @@ Route::get('/settings', 'SettingsController@index');
 // Uwierzytelnianie
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
-// Route::get('/logout', 'Auth\AuthController@getLogout');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 // Rejestracja
@@ -26,7 +25,6 @@ Route::post('/register', 'Auth\AuthController@postRegister');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-//Route::get('/hello', 'HomeController@hello')->name('home');
 
 //Incomes
 Route::get('/income', 'IncomeController@index');
@@ -35,6 +33,7 @@ Route::post('/income', 'IncomeController@create');
 //Expenses
 Route::get('/expense', 'ExpenseController@index');
 Route::post('/expense', 'ExpenseController@create');
+Route::post('/expense/showStatusSelectedExpense', 'ExpenseController@showStatusSelectedExpense');
 
 //Balances
 Route::get('/balances', 'BalancesController@index');
@@ -58,6 +57,9 @@ Route::post('/settings/deleteIncomeCategory', 'SettingsController@deleteIncomeNa
 Route::post('/settings/newExpenseCategory', 'SettingsController@createNewExpenseNameCategory');
 Route::post('/settings/editExpenseCategory', 'SettingsController@changeExpenseNameCategory');
 Route::post('/settings/deleteExpenseCategory', 'SettingsController@deleteExpenseNameCategory');
+Route::post('/settings/showCategoryLimit', 'SettingsController@showCategoryLimit');
+Route::post('/settings/deleteLimit', 'SettingsController@deleteLimitCategory');
+
 //Sposoby Płatności
 Route::post('/settings/newPaymentMethodCategory', 'SettingsController@createNewPaymentMethodNameCategory');
 Route::post('/settings/editPaymentMethodCategory', 'SettingsController@changePaymentMethodNameCategory');
@@ -65,4 +67,3 @@ Route::post('/settings/deletePaymentMethodCategory', 'SettingsController@deleteP
 //Użytkownik
 Route::post('/settings/editUser', 'SettingsController@changeTheUserData');
 Route::post('/settings/deleteUser', 'SettingsController@deleteUser');
-

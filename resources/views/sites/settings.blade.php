@@ -3,6 +3,11 @@
 
 @section('title', 'Zmień ustawienia')
 
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="{{ asset('js/releaseInput.js') }}" type="text/javascript"></script>
+@endpush
+
 @section('navbar')
 <nav class="navbar navbar-dark bg-nav-Wallet navbar-expand-lg">
 
@@ -60,6 +65,10 @@
 @elseif (\Session::has('danger'))    
 <div class="alert alert-danger">
     {!! \Session::get('danger') !!}
+</div>
+@elseif (\Session::has('info'))    
+<div class="alert alert-info">
+    {!! \Session::get('info') !!}
 </div>
 @elseif($errors->has('name'))
 <div class="alert alert-danger">
@@ -119,7 +128,7 @@
                                 <option value="{{ $userIncome->id }}">{{ $userIncome->category_name }}</option>
                             @endforeach
                     </select> 
-                <label><input type="text" name="newNameEditCategoryIncome" placeholder="Nowa nazwa" required></label>
+                <label><input type="text" name="newNameEditCategoryIncome" placeholder="Nowa nazwa" minlength="3" required></label>
             <div class="modal-footer">
                 <input type="submit" class="btn btn-primary" name="kategoria_przychodu_edit" value="Zapisz">
                 
@@ -195,7 +204,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Wybierz kategorię i zmodyfikuj jej nazwę: </h5>
+                <h5 class="modal-title">Wybierz kategorię i  ją zmodyfikuj: </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -203,14 +212,28 @@
             <div class="modal-body">
                 <form method="POST" enctype="multipart/form-data" action='/settings/editExpenseCategory'>
                     @csrf
-                    <label for="category" style="font-weight: 700;">{{ __('Kategoria transakcji: ') }}</label>
+                    <label for="categoryE" style="font-weight: 700;">{{ __('Kategoria transakcji: ') }}</label>
                         <br />
-                        <select id="category" name="category_nameE" style="width:100%;">
+                        <select id="categoryE" name="category_nameE" style="width:100%;">
                             @foreach($userExpenses as $userExpense)
                                 <option value="{{ $userExpense->id }}">{{ $userExpense->category_name }}</option>
                             @endforeach
                     </select> 
-                <label><input type="text" name="newNameEditCategoryExpense" placeholder="Nowa nazwa" required></label>
+                    <br />
+                    <input type="checkbox" id="okName" value="changeName">
+                    <label for="okName">Zmień nazwę wybranej kategorii</label>
+                    <br />
+                    <input type="text" id='newNameEditCategoryExpense' style ="font-weight: 700;color:black;" placeholder="Włącz zmianę nazwy" readonly>
+                    <hr>
+                    <input type="checkbox" id="ok" value="setLimit">
+                    <label for="ok">Edytuj Limit Wydatków</label>
+                    <br />
+                    <strong id="categoryLimit"></strong>
+                    <br />
+                    <input type="text" id='limit' style ="font-weight: 700;color:black;" placeholder="Włącz edycję limitu" readonly>
+                    <br />
+                    <div id="deleteLimit" style=" display:none;"></div>
+                    <span id ="deleteStatus"></span>
             <div class="modal-footer">
                 <input type="submit" class="btn btn-primary" name="kategoria_wydatku_edit" value="Zapisz">
                 
@@ -267,7 +290,7 @@
             <div class="modal-body">
                 <form method="POST" enctype="multipart/form-data" action='/settings/newPaymentMethodCategory'>
                     @csrf 
-                    <label><input type="text" name="newPaymentMethodCategory" placeholder="Nowa kategoria" required></label>
+                    <label><input type="text" name="newPaymentMethodCategory" placeholder="Nowa kategoria" minlength="3" required></label>
 
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-primary" name="kategoria_sposobu_platnosci_add" value="Dodaj">
@@ -301,7 +324,7 @@
                                 <option value="{{ $userPaymentMethod->id }}">{{ $userPaymentMethod->payment_method }}</option>
                             @endforeach
                     </select> 
-                <label><input type="text" name="newNameEditCategoryPaymentMethod" placeholder="Nowa nazwa" required></label>
+                <label><input type="text" name="newNameEditCategoryPaymentMethod" placeholder="Nowa nazwa" minlength="3" required></label>
             <div class="modal-footer">
                 <input type="submit" class="btn btn-primary" name="kategoria_sposobu_platnosci_edit" value="Zapisz">
                 
@@ -438,10 +461,12 @@
 </div>
 @endforeach
 @endif
+
 <article class="walletspage">
             <div class="container">
                 <header>
                     <h1 class="font-weight-bold text-uppercase mb-2">Wybierz opcję do zmiany</h1>
+                    <p>Ps. w kategorii wydatku możesz dodatkowo utawić limit transakcji na dany miesiąc</p>
                 </header>
 
                 <div class="row mb-4">

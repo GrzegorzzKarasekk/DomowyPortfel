@@ -16,7 +16,6 @@ class CreateDefaultPaymentMethodsTable extends Migration
         Schema::create('default_payment_methods', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('payment_method');
-            $table->timestamps();
         });
 
         DB::table('default_payment_methods')->insert(array(

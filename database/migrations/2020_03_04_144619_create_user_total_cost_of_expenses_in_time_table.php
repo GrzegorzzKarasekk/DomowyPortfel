@@ -18,7 +18,6 @@ class CreateUserTotalCostOfExpensesInTimeTable extends Migration
             $table->unsignedBigInteger('category_name_id');
             $table->string('category_name');
             $table->float('amount', 8, 2);
-            $table->timestamps();
         });
     }
 

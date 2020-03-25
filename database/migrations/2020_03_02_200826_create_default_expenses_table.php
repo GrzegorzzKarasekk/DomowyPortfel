@@ -16,7 +16,6 @@ class CreateDefaultExpensesTable extends Migration
         Schema::create('default_expenses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('category_name');
-            $table->timestamps();
         });
 
         DB::table('default_expenses')->insert(array(

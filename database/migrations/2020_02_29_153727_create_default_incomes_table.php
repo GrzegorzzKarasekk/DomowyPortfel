@@ -15,8 +15,7 @@ class CreateDefaultIncomesTable extends Migration
     {
         Schema::create('default_incomes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category_name');
-            $table->timestamps(); 
+            $table->string('category_name'); 
         });
 
         DB::table('default_incomes')->insert(array(

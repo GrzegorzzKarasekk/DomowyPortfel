@@ -108,9 +108,7 @@
                         <div class="wrapperForm col-12 col-md-6 mx-auto my-3 mb-2">
                             <label for="category">{{ __('Kategoria transakcji:') }}</label>
                             <select id="category" name="category_name" style="width:100%;">
-                            <!-- @foreach ($options as $option)
-                                <option value="{{ $option->id }}">{{ $option->category_name }}</option>
-                            @endforeach -->
+                           
                             @foreach ($options as $option)
                                 @if (Input::old('category_name') == $option->id)
                                     <option value="{{ $option->id }}" selected>{{ $option->category_name }}</option>
@@ -118,11 +116,7 @@
                                     <option value="{{ $option->id }}">{{ $option->category_name }}</option>
                                 @endif
                             @endforeach
-                            <!--                             
-                                foreach ($options as $option) {
-                                echo $option->id;
-                                echo $option->category_name;
-                            } -->
+
                             </select>
                             <div>
                                 @error('category_name')

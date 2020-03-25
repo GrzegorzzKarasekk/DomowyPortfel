@@ -44,6 +44,7 @@ class LoginController extends Controller
         auth()->logout();
         // redirect to homepage
         DB::table('user_total_cost_of_expenses_in_time')->truncate();
+        DB::table('user_total_cost_of_expenses_in_this_mounth')->truncate();        
         return redirect('/');
     }
 

@@ -171,16 +171,10 @@ class BalancesController extends Controller
         //* Zapisanie obecnego kosztu do bazy
         //Pobranie kosztu z bazy Wydatków użytkownika
         $costsOfCurrentlyExpensesCategory = floatval($costsOfExpense->amount);
-        // echo "\n".$costsOfCurrentlyExpensesCategory;
-        
         //Pobranie łącznej kwoty dla danej kategorii, w danym okresie z tabeli "Na dany okres"
         $downloadCostsOfSelectCategory = DB::table('user_total_cost_of_expenses_in_time')->where('category_name_id', '=', $costsOfExpense->category_user_id)->first(); 
-        // echo $downloadCostsOfSelectCategory;
-        // echo "PRZERWA";
-                    
         // //Koszt kategorii
         $costOfSelectCategory = floatval($downloadCostsOfSelectCategory->amount);
-        //echo "\n".$costOfSelectCategory;
         //Koszt kategorii po dodaniu kosztu danego wydatku 
         $totalCost = $costOfSelectCategory + $costsOfCurrentlyExpensesCategory;
         //echo $totalCost;
@@ -194,7 +188,7 @@ class BalancesController extends Controller
         
     }
  
-    public function createChart($firstDay, $lastDay)
+    protected function createChart($firstDay, $lastDay)
     {
         
         //Pobranie danych do odczytu wykresu
@@ -285,8 +279,5 @@ class BalancesController extends Controller
 
         return $totalCost;
     }
-
-
-
-
+    
 }

@@ -466,7 +466,7 @@
             <div class="container">
                 <header>
                     <h1 class="font-weight-bold text-uppercase mb-2">Wybierz opcję do zmiany</h1>
-                    <p>Ps. w kategorii wydatku możesz dodatkowo utawić limit transakcji na dany miesiąc</p>
+                    <strong>PS. Dodatkowo, przy edycji kategorii wydatku możesz utawić limit transakcji na dany miesiąc.</strong>
                 </header>
 
                 <div class="row mb-4">
